@@ -1,13 +1,14 @@
 #include <SoftwareSerial.h>
 
-
+bool fix_motor_rigth = false;
+bool fix_motor_left = false;
 
 
 void run(int vitesse, int direction);
 
 
 
-SoftwareSerial   mySerial(5, 6);
+SoftwareSerial   SerialBluetooth(5, 6);
 
 
 void setup() {
@@ -27,7 +28,7 @@ void setup() {
 
 
   Serial.begin(9600);
-  mySerial.begin(9600);
+  SerialBluetooth.begin(9600);
 
 
 
@@ -40,18 +41,18 @@ void loop()
 {
 
 
-  if ( mySerial.available()  )  // si données reçues en Bluetooth
+  if ( SerialBluetooth.available()  )  // si données reçues en Bluetooth
   {
-    cDirection = mySerial.read(); // lecture des octets
+    cDirection = SerialBluetooth.read(); // lecture des octets
   }
   else if (Serial.available() ) {
     cDirection = Serial.read();
   }
 
 
-  if ( mySerial.available() )  // si données reçues en terminal
+  if ( SerialBluetooth.available() )  // si données reçues en terminal
   {
-    uiVitesse = mySerial.read() - 48;
+    uiVitesse = SerialBluetooth.read() - 48;
     if (uiVitesse <= 3 && uiVitesse > 0) //problemme vitesse min moteur
     {
       uiVitesse = 4;
@@ -82,37 +83,56 @@ void loop()
 
 void run(int vitesse, char direction)
 {
-
+  unsigned int vitesse_rigth = vitesse;
+  unsigned int vitesse_left = vitesse;
+  bool sens_rigth_motor = true;
+  bool sens_left_motor = true;
+  //fix_motor_rigth
 
   switch (direction)
   {
     case 'd':
-      digitalWrite(13 , HIGH);
-      digitalWrite(12 , HIGH);
+      sens_rigth_motor = true ^ fix_motor_rigth;
+      sens_left_motor = true ^ fix_motor_left;
+
+      vitesse_rigth = vitesse / 2;
+      vitesse_left = vitesse;
       break;
     case 'g':
-      digitalWrite(13 , LOW);
-      digitalWrite(12 , LOW);
+      sens_rigth_motor = true ^ fix_motor_rigth;
+      sens_left_motor = true ^ fix_motor_left;
+
+      vitesse_rigth = vitesse;
+      vitesse_left = vitesse / 2;
       break;
     case 'a':
-      digitalWrite(13 , HIGH);
-      digitalWrite(12 , LOW);
+      sens_rigth_motor = true ^ fix_motor_rigth;
+      sens_left_motor = true ^ fix_motor_left;
+
+      vitesse_rigth = vitesse;
+      vitesse_left = vitesse;
       break;
     case 'r':
-      digitalWrite(13 , LOW);
-      digitalWrite(12 , HIGH);
+      sens_rigth_motor = false ^ fix_motor_rigth;
+      sens_left_motor = false ^ fix_motor_left;
+
+      vitesse_rigth = vitesse;
+      vitesse_left = vitesse;
       break;
     default:
-      vitesse = 0;
+      vitesse_rigth = 0;
+      vitesse_left = 0;
       break;
 
   }
 
+  digitalWrite(13 , sens_rigth_motor);
+  digitalWrite(12 , sens_left_motor);
+  analogWrite(3 , vitesse_rigth); //vitesse  moteur D
+  analogWrite(11 , vitesse_left); //vitesse  moteur G
 
-  analogWrite(11 , vitesse); //vitesse  moteur G
-  analogWrite(3 , vitesse); //vitesse  moteur D
+
 
 }
-
 
 
