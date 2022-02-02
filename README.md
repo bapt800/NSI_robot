@@ -71,6 +71,11 @@ SoftwareSerial   SerialBluetooth(5, 6);
     uiVitesse = uiVitesse * 28; //convertie le chiffre (0-9) en nombre (0-255)
   }
 ```
+
+> La fonction suivante permet de commander la vitesse et la direction du robot.
+```c++
+void run(int vitesse, char direction);
+```
 ___
 > Sachant que les robots peuvent avoir des branchement de cables différents, nous avonc intégré un systeme de logique de correction rapide de cela via le code.
 
