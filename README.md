@@ -91,5 +91,4 @@ void run(int vitesse, char direction)
 }
 ```
 
-- Le moteur droit est inversé.
-- Le courant est continue pas alternatif
+
