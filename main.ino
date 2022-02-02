@@ -4,8 +4,8 @@
 bool fix_motor_rigth = false;
 bool fix_motor_left = false;
 
-
 Ultrasonic ultrasonic(2);
+
 void run(int vitesse, int direction);
 
 
@@ -42,7 +42,6 @@ unsigned int uiVitesse = 0;
 void loop()
 {
 
-
   if ( SerialBluetooth.available()  )  // si données reçues en Bluetooth
   {
     cDirection = SerialBluetooth.read(); // lecture des octets
@@ -76,8 +75,15 @@ void loop()
   Serial.println(uiVitesse);
   Serial.println(cDirection);
 
-  run(uiVitesse, cDirection);
 
+  int RangeInCentimeters = ultrasonic.MeasureInCentimeters(); // two measurements should keep an interval
+  Serial.println(RangeInCentimeters);
+  if(RangeInCentimeters > 10)
+    run(uiVitesse, cDirection);
+  else{
+    run(0, 's'); 
+  }
+  
   delay(250);
 }
 
