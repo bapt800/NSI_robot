@@ -7,12 +7,17 @@ Lorsqu'on utilise le Bluetooth nous devons utiliser des caratcères et chaque mo
 - Reculer => ```r```
 - Stop => ```s```
 
-Entrées/Sorties  | Fonction |
---- | --- |
-13 | Moteur Gauche |
---- | Moteur Droite |
-13 | Frein Gauche |
---- | Frein Droite |
+| Entrées/Sorties  | Fonction  |
+| :------------: | :------------: |
+| 13 | Sens de rotation du moteur de droite |
+| 12 | Sens de rotation du moteur de gauche |
+| 9 | Frein du moteur de droite |
+| 8| Frein du moteur de gauche |
+| 11| Le moteur de droite |
+| 3| Le moteur de gauche |
+| 5 | Réception données |
+| 6 | Transmission données |
+
 
 
 # Partie Application
@@ -42,9 +47,44 @@ Quand chaque bouton est relâché, on envoie le chaîne de caractère au client 
 (Image à intégrer)
 
 # Partie Robot
+
+> Les information de l'application sont transmise en Bluetooth et reçu par l'Arduino.
+On utilise la classe SoftwareSerial pour recuperer les donnés de la carte.
+
+```c++
+SoftwareSerial   SerialBluetooth(5, 6);
+```
+```c++
+  if ( SerialBluetooth.available()  )  // si données reçues en Bluetooth
+  {
+    cDirection = SerialBluetooth.read();  //lecture de la direction
+  }
+  
+  
+    if ( SerialBluetooth.available() )  // si données reçues en Bluetooth
+  {
+    uiVitesse = SerialBluetooth.read() - 48; //lecture de la vitesse
+    if (uiVitesse <= 3 && uiVitesse > 0) //problemme vitesse mini des moteurs
+    {
+      uiVitesse = 4;
+    }
+    uiVitesse = uiVitesse * 28; //convertie le chiffre (0-9) en nombre (0-255)
+  }
+```
 ___
-> Sachant que nous avons notre Robot nommé "Liza" qui a des caractéristique enfin des défauts (cette p*te)
-exemple: 
+> Sachant que les robots peuvent avoir des branchement de cables différents, nous avonc intégré un systeme de logique de correction rapide de cela via le code.
+
+```c++
+bool fix_motor_rigth = false;
+bool fix_motor_left = false;
+
+void run(int vitesse, char direction)
+{
+	...
+      sens_rigth_motor = true ^ fix_motor_rigth;
+      sens_left_motor = true ^ fix_motor_left;
+}
+```
 
 - Le moteur droit est inversé.
 - Le courant est continue pas alternatif
