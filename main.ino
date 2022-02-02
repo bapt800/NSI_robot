@@ -1,9 +1,11 @@
 #include <SoftwareSerial.h>
+#include "Ultrasonic.h"
 
 bool fix_motor_rigth = false;
 bool fix_motor_left = false;
 
 
+Ultrasonic ultrasonic(2);
 void run(int vitesse, int direction);
 
 
