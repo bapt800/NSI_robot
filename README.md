@@ -27,7 +27,7 @@ Nous avons utilisé le site [appinventor](http://ai2.appinventor.mit.edu "appinv
 
 > Avant de s'attaquer sur notre application nous devons créer une sélection d'item qui va nous permettre à chaque démarrage de l'application de connaître les clients Bluetooth et de s'y connecter en le choisissant.
 
-(Image à intégré)
+![ANDROID_BLUETOOTH.PNG](https://github.com/bapt800/NSI_robot/blob/main/Images/ANDROID_BLUETOOTH.PNG)
 
 ```c
 /*On met deux variables globales.*/
