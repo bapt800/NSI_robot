@@ -51,6 +51,10 @@ Quand chaque bouton est relâché, on envoie le chaîne de caractère au client 
 > Les information de l'application sont transmise en Bluetooth et reçu par l'Arduino.
 On utilise la classe SoftwareSerial pour recuperer les donnés de la carte.
 
+> Les données sont sous la forme:
+> 	- d'un caractere qui sera la direction
+> 	- et d'un chiffre (0-9) qui sera la vitesse
+
 ```c++
 SoftwareSerial   SerialBluetooth(5, 6);
 ```
