@@ -23,7 +23,7 @@ Lorsqu'on utilise le Bluetooth nous devons utiliser des caratcères et chaque mo
 # Partie Application
 ____
 APPLICATION ANDROID 
-Nous avons utilisé le site ```http://ai2.appinventor.mit.edu``` créer par le MIT qui permet de faire des applications sous format scratch afin de build un .apk sans faire du ```Java et Android Studio```.
+Nous avons utilisé le site [appinventor](http://ai2.appinventor.mit.edu "appinventor") créer par le MIT qui permet de faire des applications sous format scratch afin de build un .apk sans faire du ```Java et Android Studio```.
 
 > Avant de s'attaquer sur notre application nous devons créer une sélection d'item qui va nous permettre à chaque démarrage de l'application de connaître les clients Bluetooth et de s'y connecter en le choisissant.
 
@@ -76,8 +76,14 @@ SoftwareSerial   SerialBluetooth(5, 6);
 ```c++
 void run(int vitesse, char direction);
 ```
+```c++
+  digitalWrite(13 , sens_rigth_motor); //sens de marche du moteur droit
+  digitalWrite(12 , sens_left_motor); //sens de marche du moteur gauche
+  analogWrite(3 , vitesse_rigth); //vitesse  moteur droit
+  analogWrite(11 , vitesse_left); //vitesse  moteur gauche
+```
 ___
-> Sachant que les robots peuvent avoir des branchement de cables différents, nous avonc intégré un systeme de logique de correction rapide de cela via le code.
+> Sachant que les robots peuvent avoir des branchement de cables différents, nous avons intégré un systeme de correction rapide de cela via le code suivant.
 
 ```c++
 bool fix_motor_rigth = false;
