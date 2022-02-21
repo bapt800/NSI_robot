@@ -8,7 +8,7 @@ Ultrasonic ultrasonic(2);
 
 void run(int vitesse, int direction);
 
-
+bool hasObjectFar();
 
 SoftwareSerial   SerialBluetooth(5, 6);
 
@@ -75,18 +75,24 @@ void loop()
   Serial.println(uiVitesse);
   Serial.println(cDirection);
 
-
-  int RangeInCentimeters = ultrasonic.MeasureInCentimeters(); // two measurements should keep an interval
-  Serial.println(RangeInCentimeters);
-  if(RangeInCentimeters > 10)
+  if(ObjectFar()){
     run(uiVitesse, cDirection);
-  else{
-    run(0, 's'); 
+  }else{
+    run(0, 's');
   }
   
   delay(250);
 }
 
+
+bool hasObjectFar(){
+  int RangeInCentimeters = ultrasonic.MeasureInCentimeters(); 
+  if(RangeInCentimeters > 10)
+    return false;
+  else{
+    return true;
+  }
+}
 
 
 void run(int vitesse, char direction)
