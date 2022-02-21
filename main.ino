@@ -88,9 +88,9 @@ void loop()
 bool hasObjectFar(){
   int RangeInCentimeters = ultrasonic.MeasureInCentimeters(); 
   if(RangeInCentimeters > 10)
-    return false;
-  else{
     return true;
+  else{
+    return false;
   }
 }
 
