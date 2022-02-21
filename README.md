@@ -34,17 +34,18 @@ Nous avons utilisé le site [appinventor](http://ai2.appinventor.mit.edu "appinv
 char direction;
 int vitesse;
 ```
-(Image à intégrer)
+![ANDROID_GLOBALVAR.PNG](https://github.com/bapt800/NSI_robot/blob/main/Images/ANDROID_GLOBALVAR.PNG)
 
 ``` 
 Et récupérer des évènements de nos boutons (Droite, Gauche, Avancer, Reculer, Stop ) pressés/appuyés
 Qui renvoie une chaine de caractèressous format direction + vitesse
 ```
-(Image des fonctions à intégrer)
+![ANDROID_EVENEMENT_JOSTICK LOL.PNG](https://github.com/bapt800/NSI_robot/blob/main/Images/ANDROID_EVENEMENT_JOSTICK%20LOL.PNG)
+
 ```
 Quand chaque bouton est relâché, on envoie le chaîne de caractère au client bluetooth.
 ```
-(Image à intégrer)
+![ANDROID_FONCTION.PNG](https://github.com/bapt800/NSI_robot/blob/main/Images/ANDROID_FONCTION.PNG)
 
 # Partie Robot
 
@@ -107,9 +108,9 @@ bool hasObjectFar()
 {
   int RangeInCentimeters = ultrasonic.MeasureInCentimeters(); 
   if(RangeInCentimeters > 10)
-    return false;
-  else{
     return true;
+  else{
+    return false;
   }
 }
 ```
