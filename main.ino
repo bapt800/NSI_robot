@@ -75,7 +75,7 @@ void loop()
   Serial.println(uiVitesse);
   Serial.println(cDirection);
 
-  if(ObjectFar()){
+  if(hasObjectFar()){
     run(uiVitesse, cDirection);
   }else{
     run(0, 's');
