@@ -100,5 +100,17 @@ void run(int vitesse, char direction)
       sens_left_motor = true ^ fix_motor_left;
 }
 ```
-
+___
+> Nous avons ajouter un systeme de detection des obstacles, cela stop le robot si obstacle il y a, à moins de 10cm de celui-ci.
+```c++
+bool hasObjectFar()
+{
+  int RangeInCentimeters = ultrasonic.MeasureInCentimeters(); 
+  if(RangeInCentimeters > 10)
+    return false;
+  else{
+    return true;
+  }
+}
+```
 
